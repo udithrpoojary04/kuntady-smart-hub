@@ -18,7 +18,6 @@ services:
 
 staticSites:
   - name: transport-frontend
-    region: singapore
     rootDir: "frontend"
     buildCommand: "npm install && npm run build"
     publishDir: "dist"
