@@ -15,11 +15,11 @@ services:
       - key: ALLOWED_HOSTS
         value: "*"
 
-  - type: static_site
-    name: transport-frontend
+staticSites:
+  - name: transport-frontend
     rootDir: "frontend"
     buildCommand: "npm install && npm run build"
-    staticPublishPath: "dist"
+    publishDir: "dist"
     envVars:
       - key: VITE_API_URL
         fromService:
