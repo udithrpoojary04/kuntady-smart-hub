@@ -16,9 +16,8 @@ services:
       - key: ALLOWED_HOSTS
         value: "*"
 
-  - type: static
-    name: transport-frontend
-    env: static
+staticSites:
+  - name: transport-frontend
     region: singapore
     rootDir: "frontend"
     buildCommand: "npm install && npm run build"
