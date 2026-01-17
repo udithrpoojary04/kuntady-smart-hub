@@ -2,7 +2,6 @@ services:
   - type: web
     name: transport-backend
     env: python
-    region: singapore
     buildCommand: "./build.sh"
     startCommand: "gunicorn transport_project.wsgi:application"
     rootDir: "backend"
@@ -15,15 +14,3 @@ services:
         value: "false"
       - key: ALLOWED_HOSTS
         value: "*"
-
-staticSites:
-  - name: transport-frontend
-    rootDir: "frontend"
-    buildCommand: "npm install && npm run build"
-    publishDir: "dist"
-    envVars:
-      - key: VITE_API_URL
-        fromService:
-          type: web
-          name: transport-backend
-          property: url
