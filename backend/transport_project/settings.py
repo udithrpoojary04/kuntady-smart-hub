@@ -133,8 +133,9 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # CORS Settings
-CORS_ALLOW_ALL_ORIGINS = DEBUG  # Allow all in debug mode
+CORS_ALLOW_ALL_ORIGINS = True  # Allow all for now to fix production issues
 CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', 'http://localhost:5173').split(',')
+CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com', 'https://*.vercel.app'] # Add generic trust
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
