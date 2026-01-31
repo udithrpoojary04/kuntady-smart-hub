@@ -70,12 +70,20 @@ const BusTimings = () => {
                         >
                             <div className="flex justify-between items-start mb-4">
                                 <div className="flex items-center space-x-3">
-                                    <span className="bg-primary text-white font-bold text-lg px-3 py-1 rounded-lg shadow-sm">
-                                        {bus.bus_number}
-                                    </span>
-                                    {bus.bus_name && (
-                                        <span className="text-sm font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">
-                                            {bus.bus_name}
+                                    {bus.bus_name ? (
+                                        <>
+                                            <span className="bg-primary text-white font-bold text-lg px-3 py-1 rounded-lg shadow-sm">
+                                                {bus.bus_name}
+                                            </span>
+                                            {bus.bus_number && (
+                                                <span className="text-sm font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                                                    {bus.bus_number}
+                                                </span>
+                                            )}
+                                        </>
+                                    ) : (
+                                        <span className="bg-primary text-white font-bold text-lg px-3 py-1 rounded-lg shadow-sm">
+                                            {bus.bus_number}
                                         </span>
                                     )}
                                 </div>
