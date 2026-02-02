@@ -1,4 +1,5 @@
 from rest_framework import viewsets, permissions
+# from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.db.models import Q
@@ -8,18 +9,35 @@ from .serializers import BusSerializer, TransportServiceSerializer, PlaceSeriali
 class BusViewSet(viewsets.ModelViewSet):
     queryset = Bus.objects.all()
     serializer_class = BusSerializer
-    # Allow read-only for public, admin required for modifications
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    
+    def get_permissions(self):
+        if self.request.method in permissions.SAFE_METHODS:
+            return [permissions.AllowAny()]
+        return [permissions.IsAuthenticatedOrReadOnly()]
+    # permissions_classes=[AllowAny]
+
 
 class TransportServiceViewSet(viewsets.ModelViewSet):
     queryset = TransportService.objects.all()
     serializer_class = TransportServiceSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    
+    def get_permissions(self):
+        if self.request.method in permissions.SAFE_METHODS:
+            return [permissions.AllowAny()]
+        return [permissions.IsAuthenticatedOrReadOnly()]
+    # permissions_classes=[AllowAny]
+
 
 class PlaceViewSet(viewsets.ModelViewSet):
     queryset = Place.objects.all()
     serializer_class = PlaceSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    
+    def get_permissions(self):
+        if self.request.method in permissions.SAFE_METHODS:
+            return [permissions.AllowAny()]
+        return [permissions.IsAuthenticatedOrReadOnly()]
+
+    # permissions_classes=[AllowAny]
 
 class FeedbackViewSet(viewsets.ModelViewSet):
     queryset = Feedback.objects.all()

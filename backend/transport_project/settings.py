@@ -83,15 +83,14 @@ WSGI_APPLICATION = 'transport_project.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600
+    )
 }
 
-# Override with database URL if present (Provisioned by Render/Railway)
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+if not DATABASES['default']:
+    raise RuntimeError("DATABASE_URL environment variable not set. This project requires PostgreSQL.")
 
 
 # Password validation
@@ -140,6 +139,7 @@ CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com', 'https://*.vercel.app'] # Add 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     )
 }
 

@@ -74,7 +74,7 @@ const Footer = () => {
                             <a href="#" className="p-2 bg-gray-100 rounded-full text-gray-600 hover:bg-primary hover:text-white transition-all">
                                 <Twitter className="w-5 h-5" />
                             </a>
-                            <a href="#" className="p-2 bg-gray-100 rounded-full text-gray-600 hover:bg-primary hover:text-white transition-all">
+                            <a href="https://www.instagram.com/smart_kuntady?igsh=ODM2YnR4NDNzZG5r" className="p-2 bg-gray-100 rounded-full text-gray-600 hover:bg-primary hover:text-white transition-all">
                                 <Instagram className="w-5 h-5" />
                             </a>
                         </div>

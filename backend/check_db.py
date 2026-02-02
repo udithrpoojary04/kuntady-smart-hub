@@ -5,6 +5,9 @@ import django
 # Add the project directory to sys.path
 sys.path.append(os.getcwd())
 
+from dotenv import load_dotenv
+load_dotenv()
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'transport_project.settings')
 django.setup()
 
