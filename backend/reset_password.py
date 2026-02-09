@@ -16,7 +16,7 @@ User = get_user_model()
 
 try:
     user = User.objects.get(username='admin')
-    new_password = 'admin'  # TODO: Replace 'admin' with your desired password
+    new_password = 'Urpoojary@04'  # TODO: Replace 'admin' with your desired password
     user.set_password(new_password)
     user.save()
     print(f"Password for 'admin' set to '{new_password}'")

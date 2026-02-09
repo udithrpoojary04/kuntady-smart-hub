@@ -2,7 +2,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Bus, MapPin, Truck } from 'lucide-react';
-
 const Home = () => {
     const { t } = useTranslation();
 
