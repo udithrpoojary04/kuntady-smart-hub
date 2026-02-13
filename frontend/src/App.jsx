@@ -8,9 +8,6 @@ import BusTimings from './pages/BusTimings';
 import TransportDetails from './pages/TransportDetails';
 import FamousPlaces from './pages/FamousPlaces';
 import Feedback from './pages/Feedback';
-// import AdminDashboard from './pages/AdminDashboard'; // To be created
-import AdminLogin from './pages/AdminLogin';
-import AdminDashboard from './pages/AdminDashboard';
 
 import Chatbot from './components/Chatbot';
 import Footer from './components/Footer';
@@ -27,8 +24,6 @@ function App() {
             <Route path="/transport" element={<TransportDetails />} />
             <Route path="/places" element={<FamousPlaces />} />
             <Route path="/feedback" element={<Feedback />} />
-            <Route path="/addadmin04" element={<AdminLogin />} />
-            <Route path="/addadmin04/dashboard" element={<AdminDashboard />} />
           </Routes>
         </main>
         <Chatbot />
