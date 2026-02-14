@@ -15,7 +15,7 @@ const BusTimings = () => {
 
     const fetchBuses = async () => {
         try {
-            const response = await api.get('/buses/');
+            const response = await api.get('/buses/', { _skipAuth: true });
             setBuses(response.data);
         } catch (error) {
             console.error('Error fetching buses:', error);

@@ -17,7 +17,7 @@ const TransportDetails = () => {
 
     const fetchServices = async () => {
         try {
-            const response = await api.get('/transport-services/');
+            const response = await api.get('/transport-services/', { _skipAuth: true });
             setServices(response.data);
         } catch (error) {
             console.error('Error fetching services:', error);

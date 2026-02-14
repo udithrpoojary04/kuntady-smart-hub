@@ -14,7 +14,7 @@ const FamousPlaces = () => {
 
     const fetchPlaces = async () => {
         try {
-            const response = await api.get('/places/');
+            const response = await api.get('/places/', { _skipAuth: true });
             setPlaces(response.data);
         } catch (error) {
             console.error('Error fetching places:', error);
