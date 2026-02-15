@@ -22,6 +22,7 @@ const AdminDashboard = () => {
         { id: 'buses', label: 'Buses', endpoint: '/buses/' },
         { id: 'transport', label: 'Transport Services', endpoint: '/transport-services/' },
         { id: 'places', label: 'Famous Places', endpoint: '/places/' },
+        { id: 'announcements', label: 'Announcements', endpoint: '/announcements/' },
         { id: 'feedback', label: 'Feedback', endpoint: '/feedback/' },
     ];
 
@@ -137,6 +138,22 @@ const AdminDashboard = () => {
                         <input name="location_url" value={formData.location_url || ''} placeholder="Location Map URL" onChange={handleInputChange} className={inputClass} />
                     </>
                 );
+            case 'announcements':
+                return (
+                    <>
+                        <textarea name="message" value={formData.message || ''} placeholder="Announcement Message" onChange={handleInputChange} className={inputClass} rows="3" required />
+                        <div className="flex items-center mb-3 p-3 border border-gray-200 rounded-xl bg-gray-50/50">
+                            <input
+                                type="checkbox"
+                                name="is_active"
+                                checked={formData.is_active !== undefined ? formData.is_active : true}
+                                onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
+                                className="w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary mr-2"
+                            />
+                            <label className="text-gray-700 font-medium">Active</label>
+                        </div>
+                    </>
+                );
             default:
                 return null;
         }
@@ -210,6 +227,10 @@ const AdminDashboard = () => {
                                             {activeTab === 'transport' && <th className="p-4 font-semibold text-gray-600">Provider</th>}
                                             {activeTab === 'transport' && <th className="p-4 font-semibold text-gray-600">Type</th>}
                                             {activeTab === 'places' && <th className="p-4 font-semibold text-gray-600">Name</th>}
+                                            {activeTab === 'places' && <th className="p-4 font-semibold text-gray-600">Name</th>}
+                                            {activeTab === 'announcements' && <th className="p-4 font-semibold text-gray-600">Message</th>}
+                                            {activeTab === 'announcements' && <th className="p-4 font-semibold text-gray-600">Status</th>}
+                                            {activeTab === 'announcements' && <th className="p-4 font-semibold text-gray-600">Updated At</th>}
                                             {activeTab === 'feedback' && <th className="p-4 font-semibold text-gray-600">User</th>}
                                             {activeTab === 'feedback' && <th className="p-4 font-semibold text-gray-600">Message</th>}
                                             <th className="p-4 font-semibold text-gray-600 text-right last:rounded-tr-xl">Actions</th>
@@ -243,6 +264,19 @@ const AdminDashboard = () => {
                                                 )}
                                                 {activeTab === 'places' && (
                                                     <td className="p-4 font-medium text-gray-800">{item.name}</td>
+                                                )}
+                                                {activeTab === 'announcements' && (
+                                                    <>
+                                                        <td className="p-4 font-medium text-gray-800 truncate max-w-xs">{item.message}</td>
+                                                        <td className="p-4">
+                                                            <span className={`px-2 py-1 rounded-full text-xs font-semibold ${item.is_active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                                                                {item.is_active ? 'Active' : 'Inactive'}
+                                                            </span>
+                                                        </td>
+                                                        <td className="p-4 text-gray-600">
+                                                            {new Date(item.updated_at).toLocaleDateString()}
+                                                        </td>
+                                                    </>
                                                 )}
                                                 {activeTab === 'feedback' && (
                                                     <>

@@ -2,6 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Bus, MapPin, Truck } from 'lucide-react';
+import AnnouncementBanner from '../components/AnnouncementBanner';
+
 const Home = () => {
     const { t } = useTranslation();
 
@@ -21,7 +23,8 @@ const Home = () => {
     );
 
     return (
-        <div className="min-h-[calc(100vh-5rem)] flex flex-col items-center justify-center p-4 relative overflow-hidden">
+        <div className="min-h-[calc(100vh-5rem)] flex flex-col items-center justify-start p-4 relative overflow-hidden">
+            <AnnouncementBanner />
             {/* Background Decorations */}
             <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl -z-10 animate-pulse" />
             <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-3xl -z-10 animate-pulse" style={{ animationDelay: '1s' }} />

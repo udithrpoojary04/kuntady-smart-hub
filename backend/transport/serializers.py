@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Bus, TransportService, Place, Feedback
+from .models import Bus, TransportService, Place, Feedback, Announcement
 
 class BusSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,4 +19,9 @@ class PlaceSerializer(serializers.ModelSerializer):
 class FeedbackSerializer(serializers.ModelSerializer):
     class Meta:
         model = Feedback
+        fields = '__all__'
+
+class AnnouncementSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Announcement
         fields = '__all__'

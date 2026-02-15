@@ -55,3 +55,7 @@ media/
 # IDEs
 .vscode/
 .idea/
+
+# Private Scripts
+backend/verify_announcements.py
+backend/force_reset_password.py

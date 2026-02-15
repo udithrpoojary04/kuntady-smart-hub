@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Bus, TransportService, Place, Feedback
+from .models import Bus, TransportService, Place, Feedback, Announcement
 
 @admin.register(Bus)
 class BusAdmin(admin.ModelAdmin):
@@ -19,3 +19,9 @@ class PlaceAdmin(admin.ModelAdmin):
 class FeedbackAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'created_at')
     readonly_fields = ('created_at',)
+
+@admin.register(Announcement)
+class AnnouncementAdmin(admin.ModelAdmin):
+    list_display = ('message', 'is_active', 'updated_at')
+    list_filter = ('is_active',)
+    search_fields = ('message',)

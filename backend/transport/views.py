@@ -3,8 +3,8 @@ from rest_framework import viewsets, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.db.models import Q
-from .models import Bus, TransportService, Place, Feedback
-from .serializers import BusSerializer, TransportServiceSerializer, PlaceSerializer, FeedbackSerializer
+from .models import Bus, TransportService, Place, Feedback, Announcement
+from .serializers import BusSerializer, TransportServiceSerializer, PlaceSerializer, FeedbackSerializer, AnnouncementSerializer
 
 class BusViewSet(viewsets.ModelViewSet):
     queryset = Bus.objects.all()
@@ -42,6 +42,15 @@ class FeedbackViewSet(viewsets.ModelViewSet):
     
     def get_permissions(self):
         if self.request.method == 'POST': # Allow anyone to POST feedback
+            return [permissions.AllowAny()]
+        return [permissions.IsAdminUser()]
+
+class AnnouncementViewSet(viewsets.ModelViewSet):
+    queryset = Announcement.objects.all().order_by('-updated_at')
+    serializer_class = AnnouncementSerializer
+
+    def get_permissions(self):
+        if self.request.method in permissions.SAFE_METHODS:
             return [permissions.AllowAny()]
         return [permissions.IsAdminUser()]
 
