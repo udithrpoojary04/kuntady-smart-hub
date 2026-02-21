@@ -54,6 +54,12 @@ class AnnouncementViewSet(viewsets.ModelViewSet):
             return [permissions.AllowAny()]
         return [permissions.IsAdminUser()]
 
+class PingAPIView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request):
+        return Response({"status": "ok", "message": "Server is awake"})
+
 class ChatAPIView(APIView):
     permission_classes = [permissions.AllowAny]
 

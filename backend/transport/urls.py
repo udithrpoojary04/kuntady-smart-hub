@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import BusViewSet, TransportServiceViewSet, PlaceViewSet, FeedbackViewSet, AnnouncementViewSet, ChatAPIView
+from .views import BusViewSet, TransportServiceViewSet, PlaceViewSet, FeedbackViewSet, AnnouncementViewSet, ChatAPIView, PingAPIView
 
 router = DefaultRouter()
 router.register(r'buses', BusViewSet)
@@ -12,4 +12,5 @@ router.register(r'announcements', AnnouncementViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('chat/', ChatAPIView.as_view(), name='chat'),
+    path('ping/', PingAPIView.as_view(), name='ping'),
 ]
