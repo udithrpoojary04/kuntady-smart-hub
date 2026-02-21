@@ -9,6 +9,7 @@ const TransportDetails = () => {
     const { t } = useTranslation();
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const location = useLocation();
 
     useEffect(() => {
@@ -16,11 +17,14 @@ const TransportDetails = () => {
     }, []);
 
     const fetchServices = async () => {
+        setLoading(true);
+        setError(null);
         try {
             const response = await api.get('/transport-services/', { _skipAuth: true });
             setServices(response.data);
-        } catch (error) {
-            console.error('Error fetching services:', error);
+        } catch (err) {
+            console.error('Error fetching services:', err);
+            setError(t('failed_to_load_data') || 'Failed to load transport services. The server might be waking up (can take up to a minute). Please try again.');
         } finally {
             setLoading(false);
         }
@@ -51,7 +55,21 @@ const TransportDetails = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
             <h1 className="text-3xl font-bold text-gray-900 mb-6">{getTitle()}</h1>
 
-            {loading ? <p>Loading...</p> : (
+            {loading ? (
+                <div className="flex justify-center p-12">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                </div>
+            ) : error ? (
+                <div className="flex flex-col items-center justify-center p-12 bg-red-50/50 backdrop-blur-sm rounded-2xl border border-red-100 mb-8">
+                    <p className="text-red-600 font-medium text-lg text-center mb-6 max-w-lg">{error}</p>
+                    <button
+                        onClick={fetchServices}
+                        className="px-8 py-3 bg-primary text-white rounded-full font-bold hover:bg-primary/90 transition-colors shadow-md hover:-translate-y-0.5"
+                    >
+                        {t('retry') || 'Retry'}
+                    </button>
+                </div>
+            ) : (
                 <div className="space-y-8">
                     {typesToShow.map(type => {
                         const typeServices = services.filter(s => s.service_type === type);

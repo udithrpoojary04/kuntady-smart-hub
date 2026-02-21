@@ -7,6 +7,7 @@ const BusTimings = () => {
     const { t } = useTranslation();
     const [buses, setBuses] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
@@ -14,15 +15,14 @@ const BusTimings = () => {
     }, []);
 
     const fetchBuses = async () => {
+        setLoading(true);
+        setError(null);
         try {
             const response = await api.get('/buses/', { _skipAuth: true });
             setBuses(response.data);
-        } catch (error) {
-            console.error('Error fetching buses:', error);
-            if (error.code === 'ECONNABORTED' || error.response?.status === 504) {
-                // Could act on this state to show specific "Waking up server..." message
-                console.log("Server waking up...");
-            }
+        } catch (err) {
+            console.error('Error fetching buses:', err);
+            setError(t('failed_to_load_data') || 'Failed to load bus timings. The server might be waking up (can take up to a minute). Please try again.');
         } finally {
             setLoading(false);
         }
@@ -62,6 +62,16 @@ const BusTimings = () => {
             {loading ? (
                 <div className="flex justify-center p-12">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                </div>
+            ) : error ? (
+                <div className="flex flex-col items-center justify-center p-12 bg-red-50/50 backdrop-blur-sm rounded-2xl border border-red-100 mb-8">
+                    <p className="text-red-600 font-medium text-lg text-center mb-6 max-w-lg">{error}</p>
+                    <button
+                        onClick={fetchBuses}
+                        className="px-8 py-3 bg-primary text-white rounded-full font-bold hover:bg-primary/90 transition-colors shadow-md hover:-translate-y-0.5"
+                    >
+                        {t('retry') || 'Retry'}
+                    </button>
                 </div>
             ) : (
                 <>

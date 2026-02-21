@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000/api',
-    timeout: 30000, // 30 seconds timeout
+    timeout: 60000, // 60 seconds timeout (to allow render backend to wake up)
 });
 
 api.interceptors.request.use(
@@ -34,13 +34,15 @@ api.interceptors.response.use(
 
             // Limit retries to 3
             if (originalRequest._retryCount <= 3) {
-                console.log(`Attempt ${originalRequest._retryCount} failed. Retrying in ${originalRequest._retryCount * 1000}ms...`);
+                console.log(`Attempt ${originalRequest._retryCount} failed. Retrying in ${originalRequest._retryCount * 2000}ms...`);
 
-                // Exponential backoff: 1s, 2s, 3s
-                const delay = originalRequest._retryCount * 1000;
+                // Exponential backoff: 2s, 4s, 6s
+                const delay = originalRequest._retryCount * 2000;
                 await new Promise(resolve => setTimeout(resolve, delay));
 
                 return api(originalRequest);
+            } else {
+                originalRequest._retry = true; // Mark as exhausted so we don't retry again
             }
         }
 
