@@ -68,20 +68,54 @@ const AdminDashboard = () => {
     };
 
     const handleInputChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        if (e.target.type === 'file') {
+            setFormData({ ...formData, [e.target.name]: e.target.files[0] });
+        } else {
+            setFormData({ ...formData, [e.target.name]: e.target.value });
+        }
+    };
+
+    const handleRemoveImage = () => {
+        setFormData({ ...formData, image: null, remove_image: true });
+        // Clear the file input if one was selected
+        const fileInput = document.querySelector('input[name="image"]');
+        if (fileInput) fileInput.value = '';
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const endpoint = tabs.find(t => t.id === activeTab)?.endpoint;
+            let submitData = formData;
+            let headers = {};
+
+            if (activeTab === 'places') {
+                submitData = new FormData();
+                for (const key in formData) {
+                    if (key === 'image' && typeof formData[key] === 'string') {
+                        // Skip if it's an existing image URL, backend already has it.
+                        // Or we can let it pass depending on backend, but safer to skip URL strings in FormData file field.
+                    } else if (key === 'image' && formData[key] === null) {
+                        // explicitly passing empty string to clear the image field in backend
+                        submitData.append(key, '');
+                    } else if (formData[key] !== null && formData[key] !== undefined) {
+                        submitData.append(key, formData[key]);
+                    }
+                }
+                // if flagged for removal, ensure empty string is sent
+                if (formData.remove_image) {
+                    submitData.append('image', '');
+                }
+                headers = { 'Content-Type': 'multipart/form-data' };
+            }
+
             if (editingItem) {
                 // Update existing
-                const response = await api.put(`${endpoint}${editingItem.id}/`, formData);
+                const response = await api.put(`${endpoint}${editingItem.id}/`, submitData, { headers });
                 setItems(items.map(item => item.id === editingItem.id ? response.data : item));
             } else {
                 // Create new
-                const response = await api.post(endpoint, formData);
+                const response = await api.post(endpoint, submitData, { headers });
                 setItems([...items, response.data]);
             }
             closeModal();
@@ -136,6 +170,30 @@ const AdminDashboard = () => {
                         <input name="name" value={formData.name || ''} placeholder="Place Name" onChange={handleInputChange} className={inputClass} required />
                         <textarea name="description" value={formData.description || ''} placeholder="Description" onChange={handleInputChange} className={inputClass} rows="3" required />
                         <input name="location_url" value={formData.location_url || ''} placeholder="Location Map URL" onChange={handleInputChange} className={inputClass} />
+                        <div className="w-full mb-3">
+                            <label className="block text-xs font-medium text-gray-500 mb-1 ml-1">Image (Optional)</label>
+                            <input type="file" name="image" accept="image/*" onChange={handleInputChange} className={inputClass} style={{ marginBottom: 0 }} />
+                            {formData.image && typeof formData.image === 'string' && (
+                                <div className="mt-2 ml-1 flex items-center justify-between bg-gray-50 border border-gray-200 rounded-lg p-2">
+                                    <div className="flex items-center">
+                                        <img src={formData.image} alt="Current" className="w-10 h-10 object-cover rounded mr-3 border border-gray-300" />
+                                        <p className="text-sm font-medium text-gray-700">Current image uploaded.</p>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={handleRemoveImage}
+                                        className="text-red-500 hover:bg-red-50 p-1.5 rounded-md transition-colors flex items-center"
+                                        title="Remove Image"
+                                    >
+                                        <Trash2 className="w-4 h-4 mr-1" />
+                                        <span className="text-xs font-semibold">Remove</span>
+                                    </button>
+                                </div>
+                            )}
+                            {formData.remove_image && !formData.image && (
+                                <p className="text-xs text-red-500 mt-1 ml-1">Image will be removed upon saving.</p>
+                            )}
+                        </div>
                     </>
                 );
             case 'announcements':
