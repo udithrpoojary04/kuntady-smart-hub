@@ -140,14 +140,30 @@ CLOUDINARY_STORAGE = {
 }
 
 # Setup Static and Media Storage
-STORAGES = {
-    "default": {
-        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
-    },
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
+HAS_CLOUDINARY = bool(
+    os.environ.get('CLOUDINARY_CLOUD_NAME') and
+    os.environ.get('CLOUDINARY_API_KEY') and
+    os.environ.get('CLOUDINARY_API_SECRET')
+)
+
+if HAS_CLOUDINARY:
+    STORAGES = {
+        "default": {
+            "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
+else:
+    STORAGES = {
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
