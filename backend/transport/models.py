@@ -24,8 +24,8 @@ class TransportService(models.Model):
     service_type = models.CharField(_('Service Type'), max_length=20, choices=SERVICE_TYPES)
     provider_name = models.CharField(_('Provider/Driver Name'), max_length=100)
     contact_number = models.CharField(_('Contact Number'), max_length=20, blank=True)
-    stand_location = models.CharField(_('Stand Location'), max_length=100)
-    service_area = models.TextField(_('Service Area'))
+    stand_location = models.CharField(_('Stand Location'), max_length=100, blank=True, null=True)
+    service_area = models.TextField(_('Service Area'), blank=True, null=True)
 
     def __str__(self):
         return f"{self.get_service_type_display()} - {self.provider_name}"

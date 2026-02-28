@@ -160,8 +160,8 @@ const AdminDashboard = () => {
                         </select>
                         <input name="provider_name" value={formData.provider_name || ''} placeholder="Provider Name" onChange={handleInputChange} className={inputClass} required />
                         <input name="contact_number" value={formData.contact_number || ''} placeholder="Contact Number" onChange={handleInputChange} className={inputClass} required />
-                        <input name="stand_location" value={formData.stand_location || ''} placeholder="Stand Location" onChange={handleInputChange} className={inputClass} />
-                        <input name="service_area" value={formData.service_area || ''} placeholder="Service Area" onChange={handleInputChange} className={inputClass} />
+                        <input name="stand_location" value={formData.stand_location || ''} placeholder="Stand Location" onChange={handleInputChange} className={inputClass} required />
+                        <input name="service_area" value={formData.service_area || ''} placeholder="Service Area" onChange={handleInputChange} className={inputClass} required />
                     </>
                 );
             case 'places':
