@@ -84,7 +84,7 @@ const TransportDetails = () => {
                                     <div className="bg-gray-50 px-6 py-4 border-b border-gray-100">
                                         <h2 className="text-xl font-bold text-gray-800 flex items-center">
                                             {getServiceIcon(type)}
-                                            <span className="ml-3">{type === 'OTHER' ? 'Taxi/Car' : type.charAt(0) + type.slice(1).toLowerCase()}</span>
+                                            <span className="ml-3">{type === 'OTHER' ? 'Car Taxis' : type.charAt(0) + type.slice(1).toLowerCase()}</span>
                                         </h2>
                                     </div>
                                 )}

@@ -19,11 +19,11 @@ const AdminDashboard = () => {
     };
 
     const tabs = [
-        { id: 'buses', label: 'Buses', endpoint: '/buses/' },
-        { id: 'transport', label: 'Transport Services', endpoint: '/transport-services/' },
-        { id: 'places', label: 'Famous Places', endpoint: '/places/' },
-        { id: 'announcements', label: 'Announcements', endpoint: '/announcements/' },
-        { id: 'feedback', label: 'Feedback', endpoint: '/feedback/' },
+        { id: 'buses', label: 'Buses', singular: 'Bus', endpoint: '/buses/' },
+        { id: 'transport', label: 'Transport Services', singular: 'Transport Service', endpoint: '/transport-services/' },
+        { id: 'places', label: 'Famous Places', singular: 'Famous Place', endpoint: '/places/' },
+        { id: 'announcements', label: 'Announcements', singular: 'Announcement', endpoint: '/announcements/' },
+        { id: 'feedback', label: 'Feedback', singular: 'Feedback', endpoint: '/feedback/' },
     ];
 
     useEffect(() => {
@@ -156,7 +156,7 @@ const AdminDashboard = () => {
                             <option value="">Select Service Type</option>
                             <option value="AUTO">Auto</option>
                             <option value="TEMPO">Tempo</option>
-                            <option value="OTHER">Other</option>
+                            <option value="OTHER">Car Taxis</option>
                         </select>
                         <input name="provider_name" value={formData.provider_name || ''} placeholder="Provider Name" onChange={handleInputChange} className={inputClass} required />
                         <input name="contact_number" value={formData.contact_number || ''} placeholder="Contact Number" onChange={handleInputChange} className={inputClass} required />
@@ -222,7 +222,7 @@ const AdminDashboard = () => {
             {/* Header */}
             <div className="glass sticky top-0 z-30">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-                    <h1 className="text-2xl font-bold text-gray-800">Admin Dashboard</h1>
+                    <h1 className="text-2xl font-bold text-gray-800">Smart Kuntady Admin Dashboard</h1>
                     <button onClick={handleLogout} className="text-red-600 hover:text-red-800 flex items-center font-medium transition-colors p-2 hover:bg-red-50 rounded-lg">
                         <LogOut className="w-5 h-5 mr-2" /> Logout
                     </button>
@@ -317,7 +317,7 @@ const AdminDashboard = () => {
                                                 {activeTab === 'transport' && (
                                                     <>
                                                         <td className="p-4 font-medium text-gray-800">{item.provider_name}</td>
-                                                        <td className="p-4"><span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-xs font-semibold">{item.service_type}</span></td>
+                                                        <td className="p-4"><span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-xs font-semibold">{item.service_type === 'OTHER' ? 'Car Taxis' : item.service_type}</span></td>
                                                     </>
                                                 )}
                                                 {activeTab === 'places' && (
@@ -387,7 +387,7 @@ const AdminDashboard = () => {
                                 ? <span className="text-blue-600 mr-2"><Edit2 className="w-6 h-6" /></span>
                                 : <span className="text-green-600 mr-2"><Plus className="w-6 h-6" /></span>
                             }
-                            {editingItem ? 'Edit' : 'Add New'} {tabs.find(t => t.id === activeTab)?.label.slice(0, -1)}
+                            {editingItem ? 'Edit' : 'Add New'} {tabs.find(t => t.id === activeTab)?.singular}
                         </h2>
 
                         <form onSubmit={handleSubmit}>

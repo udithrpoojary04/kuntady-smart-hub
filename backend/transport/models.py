@@ -18,7 +18,7 @@ class TransportService(models.Model):
     SERVICE_TYPES = [
         ('AUTO', _('Auto Rickshaw')),
         ('TEMPO', _('Tempo')),
-        ('OTHER', _('Other')),
+        ('OTHER', _('Car Taxis')),
     ]
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     service_type = models.CharField(_('Service Type'), max_length=20, choices=SERVICE_TYPES)
