@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Bus, MapPin, Truck, MessageSquare, Mail, Phone, Facebook, Twitter, Instagram } from 'lucide-react';
+import logo from '../assets/logo.png';
 
 const Footer = () => {
     const { t } = useTranslation();
@@ -13,9 +14,7 @@ const Footer = () => {
                     {/* Brand Column */}
                     <div>
                         <Link to="/" className="flex items-center space-x-2 mb-6 group">
-                            <div className="bg-primary/10 p-2 rounded-xl group-hover:rotate-6 transition-transform">
-                                <Bus className="w-6 h-6 text-primary" />
-                            </div>
+                            <img src={logo} alt="Smart Kuntady Logo" className="w-12 h-12 object-contain group-hover:rotate-6 transition-transform duration-300" />
                             <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
                                 {t('app_title')}
                             </span>
