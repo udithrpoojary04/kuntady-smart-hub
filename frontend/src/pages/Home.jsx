@@ -64,14 +64,14 @@ const Home = () => {
                         {t('welcome_message')}
                     </p>
 
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    {/* <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                         <Link to="/buses" className="px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-2xl font-bold text-lg hover:shadow-[0_8px_30px_rgb(79,70,229,0.3)] hover:scale-105 transition-all shadow-xl w-full sm:w-auto flex items-center justify-center group">
                             Find Buses <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                         </Link>
                         <Link to="/places" className="px-8 py-4 bg-white/80 backdrop-blur-md text-gray-900 border border-gray-200/50 hover:border-gray-300 rounded-2xl font-bold text-lg hover:bg-white hover:scale-105 transition-all shadow-lg w-full sm:w-auto flex items-center justify-center">
                             Explore Places
                         </Link>
-                    </div>
+                    </div> */}
                 </motion.div>
 
                 {/* Bento Box Layout */}
