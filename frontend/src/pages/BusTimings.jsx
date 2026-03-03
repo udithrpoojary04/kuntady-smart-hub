@@ -31,9 +31,8 @@ const BusTimings = () => {
     const filteredBuses = buses.filter(bus =>
         (bus.bus_number && bus.bus_number.includes(searchTerm)) ||
         (bus.bus_name && bus.bus_name.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        bus.start_point.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        bus.start_point.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        bus.end_point.toLowerCase().includes(searchTerm.toLowerCase())
+        (bus.start_point && bus.start_point.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (bus.end_point && bus.end_point.toLowerCase().includes(searchTerm.toLowerCase()))
     ).sort((a, b) => a.time.localeCompare(b.time));
 
     const formatTime = (timeString) => {
