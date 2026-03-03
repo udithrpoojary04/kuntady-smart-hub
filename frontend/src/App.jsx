@@ -8,7 +8,8 @@ import BusTimings from './pages/BusTimings';
 import TransportDetails from './pages/TransportDetails';
 import FamousPlaces from './pages/FamousPlaces';
 import Feedback from './pages/Feedback';
-
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsConditions from './pages/TermsConditions';
 import Chatbot from './components/Chatbot';
 import Footer from './components/Footer';
 
@@ -24,6 +25,8 @@ function App() {
             <Route path="/transport" element={<TransportDetails />} />
             <Route path="/places" element={<FamousPlaces />} />
             <Route path="/feedback" element={<Feedback />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsConditions />} />
           </Routes>
         </main>
         <Chatbot />
