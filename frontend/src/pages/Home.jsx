@@ -38,7 +38,7 @@ const Home = () => {
                 <div className="absolute bottom-[-20%] left-[20%] w-[40%] h-[40%] bg-accent/30 rounded-full mix-blend-multiply filter blur-[128px] opacity-70 animate-blob animation-delay-4000"></div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-32 relative z-10">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-16 pb-32 relative z-10">
 
                 {/* Hero Section */}
                 <motion.div
@@ -49,12 +49,11 @@ const Home = () => {
                 >
                     <div className="inline-flex items-center space-x-2 bg-white/50 backdrop-blur-md px-4 py-2 rounded-full border border-white/40 shadow-sm mb-8">
                         <Star className="w-4 h-4 text-secondary" />
-                        <span className="text-sm font-semibold text-gray-800">Your Smart Transport Hub</span>
+                        <span className="text-sm font-semibold text-gray-800">{t('tagline_small')}</span>
                     </div>
 
                     <h1 className="text-5xl md:text-8xl font-black mb-6 tracking-tight leading-[1.1]">
                         {/* Explore With */}
-                        <br />
                         <span className="text-gradient drop-shadow-sm">
                             {t('app_title')}
                         </span>
