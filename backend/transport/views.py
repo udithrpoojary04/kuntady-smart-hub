@@ -3,6 +3,8 @@ from rest_framework import viewsets, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.db.models import Q
+from django.core.mail import send_mail
+from django.conf import settings
 from .models import Bus, TransportService, Place, Feedback, Announcement
 from .serializers import BusSerializer, TransportServiceSerializer, PlaceSerializer, FeedbackSerializer, AnnouncementSerializer
 
@@ -44,6 +46,29 @@ class FeedbackViewSet(viewsets.ModelViewSet):
         if self.request.method == 'POST': # Allow anyone to POST feedback
             return [permissions.AllowAny()]
         return [permissions.IsAdminUser()]
+
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        
+        subject = f"New Feedback Received from {instance.name}"
+        message = (
+            f"You have received new feedback.\n\n"
+            f"Details:\n"
+            f"Name: {instance.name}\n"
+            f"Email: {instance.email}\n\n"
+            f"Message:\n{instance.message}"
+        )
+        
+        try:
+            send_mail(
+                subject=subject,
+                message=message,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=['smartkuntady@gmail.com'],
+                fail_silently=True,
+            )
+        except Exception as e:
+            print(f"Error sending email: {e}")
 
 class AnnouncementViewSet(viewsets.ModelViewSet):
     queryset = Announcement.objects.all().order_by('-updated_at')

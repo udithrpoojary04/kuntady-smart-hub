@@ -346,7 +346,10 @@ const AdminDashboard = () => {
                                                 )}
                                                 {activeTab === 'feedback' && (
                                                     <>
-                                                        <td className="p-4 font-medium text-gray-800">{item.name || 'Anonymous'}</td>
+                                                        <td className="p-4">
+                                                            <div className="font-medium text-gray-800">{item.name || 'Anonymous'}</div>
+                                                            <div className="text-xs text-gray-500 mt-1">{item.email}</div>
+                                                        </td>
                                                         <td className="p-4 text-gray-600 truncate max-w-xs">{item.message}</td>
                                                     </>
                                                 )}
